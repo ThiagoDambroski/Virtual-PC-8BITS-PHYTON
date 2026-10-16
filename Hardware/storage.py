@@ -17,7 +17,7 @@ class SRLatch:
             old_q = self.q
             old_q_bar = self.q_bar
 
-            self.q = nand(set_n, self.q_bar)
+            self.q = nand(set_n, cast(Bit,self.q_bar))
             self.q_bar = nand(reset_n, self.q)
 
             if self.q == old_q and self.q_bar == old_q_bar:
@@ -42,6 +42,6 @@ class Register8:
         out_list: list[Bit] = []
 
         for latch in self.latches:
-            out_list.append(latch.q)
+            out_list.append(cast(Bit,latch.q))
 
         return cast(Bits8, tuple(out_list))
