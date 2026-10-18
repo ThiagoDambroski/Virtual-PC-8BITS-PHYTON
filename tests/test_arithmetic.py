@@ -6,7 +6,7 @@ from Hardware.arithmetic import (
     full_adder_gate,
     half_adder_gate,
     increment_8bit,
-    int_to_8bit,
+    int_to_8bit, add_8bit_with_flags,
 )
 
 
@@ -56,3 +56,23 @@ def test_increment_8bit():
     result, carry = increment_8bit(int_to_8bit(255))
     assert bit8_to_int(result) == 0
     assert carry == 1
+
+
+def test_add_8bit_with_flags():
+    result, carry, zero = add_8bit_with_flags(
+        int_to_8bit(5),
+        int_to_8bit(10)
+    )
+
+    assert result == int_to_8bit(15)
+    assert carry == 0
+    assert zero == 0
+
+    result, carry, zero = add_8bit_with_flags(
+        int_to_8bit(255),
+        int_to_8bit(1)
+    )
+
+    assert result == int_to_8bit(0)
+    assert carry == 1
+    assert zero == 1

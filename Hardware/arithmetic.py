@@ -1,7 +1,7 @@
 from typing import cast
 
 from Hardware.bit_types import Bit, Bits2, Bits8
-from Hardware.gates import and_gate, or_gate, xor_gate
+from Hardware.gates import and_gate, or_gate, xor_gate,not_gate
 
 
 def int_to_8bit(a: int) -> Bits8:
@@ -62,3 +62,15 @@ def add_from_int(a: int, b: int) -> tuple[int, Bit]:
 
 def increment_8bit(a: Bits8) -> tuple[Bits8, Bit]:
     return add_8bit_gate(a, int_to_8bit(1))
+
+
+def is_zero_8bit(value:Bits8) -> Bit:
+    has_one =  0
+    for i in range(8):
+        has_one = or_gate(has_one,value[i])
+
+    return not_gate(has_one)
+
+def add_8bit_with_flags(a: Bits8, b: Bits8) -> tuple[Bits8, Bit,Bit]:
+    result,carry = add_8bit_gate(a, b)
+    return result,carry,is_zero_8bit(result)

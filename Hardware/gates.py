@@ -62,3 +62,35 @@ def mux4way8bit_gate(
     first = mux_gate8bit(sel[0], a, b)
     second = mux_gate8bit(sel[0], c, d)
     return mux_gate8bit(sel[1], first, second)
+
+def and_gate_8bits(a: Bits8, b: Bits8) -> Bits8:
+    out_list: list[Bit] = []
+
+    for i in range(8):
+        out_list.append(and_gate(a[i], b[i]))
+
+    return cast(Bits8, tuple(out_list))
+
+def or_gate_8bits(a: Bits8, b: Bits8) -> Bits8:
+    out_list: list[Bit] = []
+
+    for i in range(8):
+        out_list.append(or_gate(a[i], b[i]))
+
+    return cast(Bits8, tuple(out_list))
+
+def xor_gate_8bits(a: Bits8, b: Bits8) -> Bits8:
+    out_list: list[Bit] = []
+
+    for i in range(8):
+        out_list.append(xor_gate(a[i], b[i]))
+
+    return cast(Bits8, tuple(out_list))
+
+def not_gate_8bits(a: Bits8) -> Bits8:
+    out_list: list[Bit] = []
+
+    for i in range(8):
+        out_list.append(not_gate(a[i]))
+
+    return cast(Bits8, tuple(out_list))
