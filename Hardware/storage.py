@@ -9,6 +9,8 @@ class SRLatch:
         self.q: Bit = cast(Bit, 0)
         self.q_bar: Bit = cast(Bit, 1)
 
+    def read(self) -> Bit:
+        return cast(Bit, self.q)
     def update(self, set_n: Bit, reset_n: Bit) -> None:
         if set_n == 0 and reset_n == 0:
             raise ValueError("Invalid SR latch state")
@@ -42,6 +44,6 @@ class Register8:
         out_list: list[Bit] = []
 
         for latch in self.latches:
-            out_list.append(cast(Bit,latch.q))
+            out_list.append(latch.read())
 
         return cast(Bits8, tuple(out_list))

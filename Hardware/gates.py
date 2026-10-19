@@ -94,3 +94,4 @@ def not_gate_8bits(a: Bits8) -> Bits8:
         out_list.append(not_gate(a[i]))
 
     return cast(Bits8, tuple(out_list))
+
