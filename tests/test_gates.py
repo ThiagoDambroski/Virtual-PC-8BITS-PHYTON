@@ -82,3 +82,25 @@ def test_mux4way8bit_gate():
     assert mux4way8bit_gate((1, 0), a, b, c, d) == b
     assert mux4way8bit_gate((0, 1), a, b, c, d) == c
     assert mux4way8bit_gate((1, 1), a, b, c, d) == d
+
+
+from Hardware.arithmetic import int_to_8bit,equal_8bit
+
+
+def test_equal_8bit_equal_values():
+    assert equal_8bit(int_to_8bit(0), int_to_8bit(0)) == 1
+    assert equal_8bit(int_to_8bit(2), int_to_8bit(2)) == 1
+    assert equal_8bit(int_to_8bit(255), int_to_8bit(255)) == 1
+
+
+def test_equal_8bit_different_values():
+    assert equal_8bit(int_to_8bit(2), int_to_8bit(3)) == 0
+    assert equal_8bit(int_to_8bit(0), int_to_8bit(255)) == 0
+    assert equal_8bit(int_to_8bit(127), int_to_8bit(128)) == 0
+
+
+def test_equal_8bit_single_bit_difference():
+    assert equal_8bit(
+        (0, 0, 0, 0, 0, 0, 0, 0),
+        (1, 0, 0, 0, 0, 0, 0, 0)
+    ) == 0

@@ -22,6 +22,9 @@ def or_gate(a: Bit, b: Bit) -> Bit:
 def xor_gate(a: Bit, b: Bit) -> Bit:
     return and_gate(or_gate(a, b), nand(a, b))
 
+def xnor_gate(a:Bit,b:Bit) -> Bit:
+    return not_gate(xor_gate(a, b))
+
 
 def mux_gate(a: Bit, b: Bit, sel: Bit) -> Bit:
     not_sel = not_gate(sel)
