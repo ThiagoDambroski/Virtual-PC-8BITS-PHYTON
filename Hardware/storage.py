@@ -47,3 +47,25 @@ class Register8:
             out_list.append(latch.read())
 
         return cast(Bits8, tuple(out_list))
+
+
+class DLatch:
+    def __init__(self):
+        self.latch = SRLatch()
+
+    def update(self, enable: Bit, data: Bit) -> None:
+       update_sr_latch(self.latch,enable,data)
+
+    def read(self) -> Bit:
+        return self.latch.read()
+
+class DFlipFlop:
+    def __init__(self):
+        self.master = DLatch()
+        self.slave = DLatch()
+
+    def update(self,clock:Bit,data:Bit):
+        self.master.update(not_gate(clock),data)
+        self.slave.update(clock,self.master.read())
+    def read(self) -> Bit:
+        return self.slave.read()
